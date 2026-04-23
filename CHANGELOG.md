@@ -4,6 +4,12 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [python-0.1.0] - 2026-04-23
+
+### Added
+
+- Initial Python release of `screensteward-shared` on PyPI with the full protobuf schema set (Family, Parent, Child, ParentDevice, ChildDevice, Policy, PolicyException, UsageCounter, UsageEvent, ParentCommand, ChildEvent).
+
 ## [dart-0.1.1] - 2026-04-23
 
 ### Changed

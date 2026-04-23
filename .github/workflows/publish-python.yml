@@ -1,0 +1,50 @@
+name: Publish Python to PyPI
+
+on:
+  push:
+    tags:
+      - 'python-v*'
+
+jobs:
+  publish:
+    permissions:
+      id-token: write  # Required for PyPI Trusted Publisher OIDC
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/screensteward-shared
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install protoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+
+      - uses: astral-sh/setup-uv@v3
+
+      - name: Sync Python venv (uv)
+        working-directory: python
+        run: uv sync --extra dev
+
+      - name: Generate Python code from proto
+        run: ./scripts/generate.sh --python-only
+
+      - name: Verify version matches tag
+        working-directory: python
+        run: |
+          PYPROJECT_VERSION=$(grep '^version =' pyproject.toml | sed -E 's/version = "(.+)"/\1/')
+          TAG_VERSION="${GITHUB_REF_NAME#python-v}"
+          if [ "$PYPROJECT_VERSION" != "$TAG_VERSION" ]; then
+            echo "ERROR: pyproject version ($PYPROJECT_VERSION) != tag version ($TAG_VERSION)"
+            exit 1
+          fi
+
+      - name: Build sdist and wheel
+        working-directory: python
+        run: uv build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: python/dist
