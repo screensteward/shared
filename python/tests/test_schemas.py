@@ -1,4 +1,4 @@
-from screensteward_shared.generated import device_pb2, family_pb2, policy_pb2
+from screensteward_shared.generated import device_pb2, family_pb2, policy_pb2, usage_pb2
 
 
 def test_family_message_roundtrip():
@@ -91,3 +91,47 @@ def test_policy_exception_has_granted_by_and_expiry():
     )
     assert e.granted_by_parent_id == "parent-A"
     assert e.duration_minutes == 30
+
+
+def test_usage_counter_aggregates_per_device():
+    c = usage_pb2.UsageCounter(
+        child_id="child-123",
+        date_yyyymmdd=20260423,
+        per_device_minutes={"dev-A": 67, "dev-B": 45, "dev-C": 20},
+    )
+    total = sum(c.per_device_minutes.values())
+    assert total == 132
+
+
+def test_usage_counter_crdt_merge_semantics():
+    """G-Counter merge = max per key."""
+    a = usage_pb2.UsageCounter(
+        child_id="child-123",
+        date_yyyymmdd=20260423,
+        per_device_minutes={"dev-A": 67, "dev-B": 30},
+    )
+    b = usage_pb2.UsageCounter(
+        child_id="child-123",
+        date_yyyymmdd=20260423,
+        per_device_minutes={"dev-A": 50, "dev-B": 45, "dev-C": 20},
+    )
+    merged_entries = {}
+    for k in set(a.per_device_minutes) | set(b.per_device_minutes):
+        merged_entries[k] = max(
+            a.per_device_minutes.get(k, 0),
+            b.per_device_minutes.get(k, 0),
+        )
+    assert merged_entries == {"dev-A": 67, "dev-B": 45, "dev-C": 20}
+
+
+def test_usage_event_has_time_bounds():
+    e = usage_pb2.UsageEvent(
+        id="ev-1",
+        child_id="child-123",
+        device_id="dev-1",
+        app_id="com.example.game",
+        started_at_ms=1700000000000,
+        ended_at_ms=1700000060000,
+        category="games",
+    )
+    assert e.ended_at_ms - e.started_at_ms == 60000

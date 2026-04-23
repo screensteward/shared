@@ -3,6 +3,7 @@ import 'package:test/test.dart';
 import 'package:screen_steward_shared/src/generated/family.pb.dart';
 import 'package:screen_steward_shared/src/generated/device.pb.dart';
 import 'package:screen_steward_shared/src/generated/policy.pb.dart';
+import 'package:screen_steward_shared/src/generated/usage.pb.dart';
 
 void main() {
   test('Family message can be constructed with id and name', () {
@@ -69,6 +70,34 @@ void main() {
         ..expiresAtMs = Int64(1700001800000);
       expect(e.grantedByParentId, 'parent-A');
       expect(e.durationMinutes, 30);
+    });
+  });
+
+  group('UsageCounter (CRDT G-Counter)', () {
+    test('UsageCounter aggregates per-device counters into a total', () {
+      final c = UsageCounter()
+        ..childId = 'child-123'
+        ..dateYyyymmdd = 20260423
+        ..perDeviceMinutes.addAll({
+          'dev-A': 67,
+          'dev-B': 45,
+          'dev-C': 20,
+        });
+      final total = c.perDeviceMinutes.values.fold<int>(0, (a, b) => a + b);
+      expect(total, 132);
+    });
+
+    test('UsageEvent has app_id and time bounds', () {
+      final e = UsageEvent()
+        ..id = 'ev-1'
+        ..childId = 'child-123'
+        ..deviceId = 'dev-1'
+        ..appId = 'com.example.game'
+        ..startedAtMs = Int64(1700000000000)
+        ..endedAtMs = Int64(1700000060000)
+        ..category = 'games';
+      final duration = e.endedAtMs - e.startedAtMs;
+      expect(duration.toInt(), 60000);
     });
   });
 }

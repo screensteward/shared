@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package screensteward.v1;
+
+option java_package = "app.screensteward.v1";
+option csharp_namespace = "ScreenSteward.V1";
+
+// A per-day, per-child usage counter implemented as a G-Counter CRDT.
+// Each device owns and increments only its own entry in per_device_minutes.
+// Merge across peers = take max of each entry. Total = sum of entries.
+message UsageCounter {
+  string child_id = 1;
+  int32 date_yyyymmdd = 2;           // e.g. 20260423
+  map<string, int32> per_device_minutes = 3;  // device_id -> minutes
+  int64 modified_at_ms = 4;          // bumped on any local increment
+}
+
+// A detailed usage event (one app session). Lives on the device that recorded it.
+// Shared with parents on demand via the event stream.
+message UsageEvent {
+  string id = 1;                     // UUIDv4
+  string child_id = 2;
+  string device_id = 3;
+  string app_id = 4;                 // e.g. "com.example.game" or "/usr/bin/firefox"
+  int64 started_at_ms = 5;
+  int64 ended_at_ms = 6;
+  string category = 7;               // "games", "educational", "communication", etc.
+}
