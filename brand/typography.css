@@ -1,0 +1,79 @@
+/* ScreenSteward typography — IBM Plex Sans and Mono, served locally.
+ *
+ * Paths are relative to this file. When embedding in another repo,
+ * copy the fonts/ directory alongside typography.css and the
+ * src: url(...) references will resolve correctly.
+ */
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/IBMPlexSans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/IBMPlexSans-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/IBMPlexSans-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/IBMPlexSans-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/IBMPlexMono-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/IBMPlexMono-Medium.woff2') format('woff2');
+}
+
+/* Type scale — ScreenSteward brand defaults.
+ * Use via CSS custom properties or direct class reference. */
+:root {
+  --ss-font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --ss-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --ss-size-h1: 32px;
+  --ss-size-h2: 22px;
+  --ss-size-h3: 16px;
+  --ss-size-body: 14px;
+  --ss-size-body-mobile: 15px;
+  --ss-size-small: 12px;
+  --ss-size-kpi: 28px;
+  --ss-size-label: 11px;
+  --ss-size-code: 13px;
+
+  --ss-weight-regular: 400;
+  --ss-weight-medium: 500;
+  --ss-weight-semibold: 600;
+  --ss-weight-bold: 700;
+
+  --ss-label-tracking: 0.08em;
+  --ss-wordmark-tracking: -0.01em;
+}
