@@ -1,0 +1,14 @@
+{
+  "@@locale": "fr",
+  "app_name": "ScreenSteward",
+
+  "pairing_scan_qr": "Scannez le QR code affiché sur l'appareil de l'enfant",
+  "pairing_show_qr": "Montrez ce code à un parent pour appairer",
+  "policy_daily_budget_title": "Budget d'écran quotidien",
+  "policy_daily_budget_remaining": "{minutes} minutes restantes aujourd'hui",
+  "policy_time_window_blocked": "Non disponible maintenant",
+  "extension_request_prompt": "Demander plus de temps à un parent",
+  "extension_granted": "{parent_name} t'a accordé {minutes} minutes supplémentaires",
+  "enrollment_success": "Appareil ajouté avec succès",
+  "enrollment_waiting_parent": "En attente qu'un parent appaire cet appareil"
+}

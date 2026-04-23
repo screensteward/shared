@@ -1,0 +1,34 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr\n"
+
+msgid "app_name"
+msgstr "ScreenSteward"
+
+msgid "pairing_scan_qr"
+msgstr "Scannez le QR code affiché sur l'appareil de l'enfant"
+
+msgid "pairing_show_qr"
+msgstr "Montrez ce code à un parent pour appairer"
+
+msgid "policy_daily_budget_title"
+msgstr "Budget d'écran quotidien"
+
+msgid "policy_daily_budget_remaining"
+msgstr "{minutes} minutes restantes aujourd'hui"
+
+msgid "policy_time_window_blocked"
+msgstr "Non disponible maintenant"
+
+msgid "extension_request_prompt"
+msgstr "Demander plus de temps à un parent"
+
+msgid "extension_granted"
+msgstr "{parent_name} t'a accordé {minutes} minutes supplémentaires"
+
+msgid "enrollment_success"
+msgstr "Appareil ajouté avec succès"
+
+msgid "enrollment_waiting_parent"
+msgstr "En attente qu'un parent appaire cet appareil"

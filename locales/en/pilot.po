@@ -1,0 +1,35 @@
+# English (base) translations for ScreenSteward.
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en\n"
+
+msgid "app_name"
+msgstr "ScreenSteward"
+
+msgid "pairing_scan_qr"
+msgstr "Scan the QR code from your child's device"
+
+msgid "pairing_show_qr"
+msgstr "Show this code to a parent to pair"
+
+msgid "policy_daily_budget_title"
+msgstr "Daily screen budget"
+
+msgid "policy_daily_budget_remaining"
+msgstr "{minutes} minutes left today"
+
+msgid "policy_time_window_blocked"
+msgstr "Not available right now"
+
+msgid "extension_request_prompt"
+msgstr "Ask a parent for more time"
+
+msgid "extension_granted"
+msgstr "{parent_name} gave you {minutes} more minutes"
+
+msgid "enrollment_success"
+msgstr "Device added successfully"
+
+msgid "enrollment_waiting_parent"
+msgstr "Waiting for a parent to pair this device"

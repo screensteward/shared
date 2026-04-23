@@ -1,0 +1,46 @@
+{
+  "@@locale": "en",
+  "app_name": "ScreenSteward",
+  "@app_name": {
+    "description": "The product name, shown in app headers"
+  },
+
+  "pairing_scan_qr": "Scan the QR code from your child's device",
+  "@pairing_scan_qr": {
+    "description": "Instruction on the parent side of pairing"
+  },
+
+  "pairing_show_qr": "Show this code to a parent to pair",
+  "@pairing_show_qr": {
+    "description": "Instruction on the child side of pairing"
+  },
+
+  "policy_daily_budget_title": "Daily screen budget",
+  "@policy_daily_budget_title": {},
+
+  "policy_daily_budget_remaining": "{minutes} minutes left today",
+  "@policy_daily_budget_remaining": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+
+  "policy_time_window_blocked": "Not available right now",
+  "@policy_time_window_blocked": {},
+
+  "extension_request_prompt": "Ask a parent for more time",
+  "@extension_request_prompt": {},
+
+  "extension_granted": "{parent_name} gave you {minutes} more minutes",
+  "@extension_granted": {
+    "placeholders": {
+      "parent_name": { "type": "String" },
+      "minutes": { "type": "int" }
+    }
+  },
+
+  "enrollment_success": "Device added successfully",
+  "@enrollment_success": {},
+
+  "enrollment_waiting_parent": "Waiting for a parent to pair this device"
+}
