@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1024 1024"
+     width="1024" height="1024">
+  <title>ScreenSteward icon</title>
+  <desc>Warm steward — an arc sheltering a dot (the hearth).</desc>
+
+  <!-- Background: Primary 500 terracotta -->
+  <g id="bg">
+    <rect x="0" y="0" width="1024" height="1024" fill="#c97b4f"/>
+  </g>
+
+  <!-- Arc: white, stroke width 96, linecap round -->
+  <g id="arc">
+    <path d="M 160 784 Q 512 128 864 784"
+          stroke="#ffffff" stroke-width="96"
+          fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Dot (hearth): white, centered below the arc -->
+  <g id="dot">
+    <circle cx="512" cy="784" r="80" fill="#ffffff"/>
+  </g>
+</svg>
