@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package screensteward.v1;
+
+option java_package = "app.screensteward.v1";
+option csharp_namespace = "ScreenSteward.V1";
+
+// A family — the top-level organizational unit. Contains parents and children.
+message Family {
+  string id = 1;           // UUIDv4
+  string name = 2;
+  int64 created_at_ms = 3; // unix epoch milliseconds
+}
+
+// A parent identity. Multiple ParentDevices can belong to the same Parent.
+message Parent {
+  string id = 1;           // UUIDv4
+  string family_id = 2;
+  string display_name = 3;
+  int64 created_at_ms = 4;
+}
+
+// A child identity. Multiple ChildDevices can belong to the same Child.
+message Child {
+  string id = 1;           // UUIDv4
+  string family_id = 2;
+  string display_name = 3;
+  optional int32 birth_year = 4;  // optional, used for age-based defaults
+  optional string avatar_ref = 5; // key into local avatar cache
+  int64 created_at_ms = 6;
+}

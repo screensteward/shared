@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package screensteward.v1;
+
+option java_package = "app.screensteward.v1";
+option csharp_namespace = "ScreenSteward.V1";
+
+// Platform classification. Used for per-platform policy scoping and for UX hints.
+enum DevicePlatform {
+  PLATFORM_UNSPECIFIED = 0;
+  PLATFORM_LINUX = 1;
+  PLATFORM_MACOS = 2;
+  PLATFORM_WINDOWS = 3;
+  PLATFORM_ANDROID = 4;
+  PLATFORM_IOS = 5;
+  PLATFORM_WEB = 6;
+}
+
+// A device belonging to a parent (phone, laptop, tablet).
+message ParentDevice {
+  string id = 1;               // UUIDv4
+  string parent_id = 2;
+  string name = 3;
+  DevicePlatform platform = 4;
+  bytes noise_pubkey = 5;      // Noise protocol static public key
+  int64 created_at_ms = 6;
+}
+
+// A device belonging to a child.
+message ChildDevice {
+  string id = 1;               // UUIDv4
+  string child_id = 2;
+  string name = 3;
+  DevicePlatform platform = 4;
+  bytes noise_pubkey = 5;
+  int64 created_at_ms = 6;
+  int64 last_seen_at_ms = 7;
+}
