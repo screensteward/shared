@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1024 1024"
+     width="1024" height="1024">
+  <title>ScreenSteward icon (monochrome white)</title>
+  <path d="M 160 784 Q 512 128 864 784"
+        stroke="#ffffff" stroke-width="96"
+        fill="none" stroke-linecap="round"/>
+  <circle cx="512" cy="784" r="80" fill="#ffffff"/>
+</svg>
