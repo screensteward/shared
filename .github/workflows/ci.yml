@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install protoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+          protoc --version
+
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.5'
+
+      - name: Install protoc-gen-dart
+        run: |
+          dart pub global activate protoc_plugin
+          echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
+
+      - uses: astral-sh/setup-uv@v3
+
+      - name: Install just
+        uses: extractions/setup-just@v2
+
+      - name: Sync Python venv (uv)
+        working-directory: python
+        run: uv sync --extra dev
+
+      - name: Generate code from proto
+        run: just generate
+
+      - name: Dart pub get
+        working-directory: dart
+        run: dart pub get
+
+      - name: Dart tests
+        working-directory: dart
+        run: dart test
+
+      - name: Python tests
+        working-directory: python
+        run: uv run pytest -v
+
+      - name: E2E hello policy round-trip
+        run: ./scripts/hello_policy_dart_to_python.sh
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.5'
+      - uses: astral-sh/setup-uv@v3
+      - name: Dart format check
+        working-directory: dart
+        run: dart format --output=none --set-exit-if-changed lib/screen_steward_shared.dart test/ example/
+      - name: Python lint (ruff)
+        working-directory: python
+        run: |
+          uv sync --extra dev
+          uv run ruff check .
