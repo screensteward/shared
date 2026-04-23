@@ -4,6 +4,12 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [python-0.1.1] - 2026-04-23
+
+### Changed
+
+- Embed the ScreenSteward icon in the Python package README, visible on PyPI.
+
 ## [dart-0.1.2] - 2026-04-23
 
 ### Changed
