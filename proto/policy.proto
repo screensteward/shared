@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package screensteward.v1;
+
+option java_package = "app.screensteward.v1";
+option csharp_namespace = "ScreenSteward.V1";
+
+// Policy scope — which devices/categories this policy applies to.
+enum PolicyScope {
+  SCOPE_UNSPECIFIED = 0;
+  SCOPE_CHILD = 1;              // applies to all devices of the child
+  SCOPE_DEVICE = 2;             // applies to one specific device
+  SCOPE_CATEGORY = 3;           // applies to a category of devices
+}
+
+// Device category when scope is SCOPE_CATEGORY.
+enum DeviceCategory {
+  CATEGORY_UNSPECIFIED = 0;
+  CATEGORY_PHONE = 1;
+  CATEGORY_TABLET = 2;
+  CATEGORY_PC = 3;
+  CATEGORY_CONSOLE = 4;
+}
+
+// A time window in 24h local time. Used for time_windows rule.
+message TimeWindow {
+  int32 start_minute_of_day = 1;   // 0..1439
+  int32 end_minute_of_day = 2;     // 0..1439; if < start, means wraps past midnight
+  repeated int32 days_of_week = 3; // 0=Monday ... 6=Sunday; empty = every day
+}
+
+// The body of rules for a Policy. All rules present MUST be satisfied simultaneously.
+message PolicyRules {
+  optional int32 daily_budget_minutes = 1;   // global or per-category depending on scope
+  repeated TimeWindow allowed_windows = 2;   // empty = no window restriction
+  repeated string blocked_apps = 3;          // app identifiers (bundle id, package name)
+  repeated string allowed_apps = 4;          // allowlist mode when non-empty
+  repeated string blocked_categories = 5;    // e.g. "games", "social"
+}
+
+// A policy attached to a Child with a scope. Lower priority breaks tie in favor of more restrictive.
+message Policy {
+  string id = 1;
+  string child_id = 2;
+  PolicyScope scope_type = 3;
+  optional string scope_device_id = 4;       // present when scope_type == SCOPE_DEVICE
+  optional DeviceCategory scope_category = 5;// present when scope_type == SCOPE_CATEGORY
+  int32 priority = 6;                         // higher = stronger
+  PolicyRules rules = 7;
+  int64 active_from_ms = 8;                   // 0 = always active from creation
+  optional int64 active_until_ms = 9;         // unset = no expiration
+  int64 modified_at_ms = 10;                  // for LWW resolution across peers
+  int64 created_at_ms = 11;
+}
+
+// A one-shot exception granted by a parent to a child.
+message PolicyException {
+  string id = 1;
+  string child_id = 2;
+  string granted_by_parent_id = 3;
+  string reason = 4;
+  int32 duration_minutes = 5;
+  int64 granted_at_ms = 6;
+  int64 expires_at_ms = 7;
+  int64 modified_at_ms = 8;
+}
