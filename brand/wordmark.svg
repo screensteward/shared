@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 480 72"
+     width="480" height="72">
+  <title>ScreenSteward wordmark</title>
+  <text x="0" y="52"
+        font-family="IBM Plex Sans, system-ui, sans-serif"
+        font-weight="600"
+        font-size="56"
+        letter-spacing="-0.56"
+        fill="#9c5a36">ScreenSteward</text>
+</svg>

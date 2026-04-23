@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 640 128"
+     width="640" height="128">
+  <title>ScreenSteward horizontal lockup</title>
+
+  <g id="icon" transform="translate(0, 0)">
+    <rect x="0" y="0" width="128" height="128" fill="#c97b4f"/>
+    <path d="M 20 98 Q 64 16 108 98"
+          stroke="#ffffff" stroke-width="12"
+          fill="none" stroke-linecap="round"/>
+    <circle cx="64" cy="98" r="10" fill="#ffffff"/>
+  </g>
+
+  <text x="160" y="82"
+        font-family="IBM Plex Sans, system-ui, sans-serif"
+        font-weight="600"
+        font-size="64"
+        letter-spacing="-0.64"
+        fill="#1a1a1a">ScreenSteward</text>
+</svg>
