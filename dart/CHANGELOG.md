@@ -1,3 +1,8 @@
+## 0.1.1
+
+- Declare `topics` in pubspec for better pub.dev search discoverability.
+- Validates the automated publishing workflow end-to-end.
+
 ## 0.1.0
 
 - Initial release.

@@ -4,6 +4,12 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [dart-0.1.1] - 2026-04-23
+
+### Changed
+
+- Add `topics` to the Dart package pubspec for pub.dev discoverability.
+
 ## [0.1.0] - 2026-04-23
 
 ### Added

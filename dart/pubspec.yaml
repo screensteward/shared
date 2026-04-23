@@ -1,9 +1,15 @@
 name: screen_steward_shared
 description: Protocol Buffers schemas, i18n bundles, and shared types for ScreenSteward.
-version: 0.1.0
+version: 0.1.1
 repository: https://github.com/screensteward/shared
 homepage: https://screensteward.app
 issue_tracker: https://github.com/screensteward/shared/issues
+topics:
+  - protobuf
+  - family
+  - parental-control
+  - screen-time
+  - i18n
 
 environment:
   sdk: '>=3.6.0 <4.0.0'
