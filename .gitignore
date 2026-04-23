@@ -6,12 +6,13 @@ dart/pubspec.lock
 
 # Python
 python/__pycache__/
-python/*.egg-info/
+**/*.egg-info/
 python/dist/
 python/build/
 python/.pytest_cache/
 python/.venv/
-python/*.pyc
+**/*.pyc
+**/__pycache__/
 
 # Generated code (regenerated from .proto)
 dart/lib/src/generated/

@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "screensteward-shared"
+version = "0.0.1.dev0"
+description = "Protocol Buffers schemas, i18n bundles, and shared types for ScreenSteward."
+readme = "README.md"
+license = {text = "GPL-3.0-or-later"}
+authors = [{name = "ScreenSteward"}]
+requires-python = ">=3.11"
+dependencies = [
+  "protobuf>=5.28",
+]
+
+[project.urls]
+Homepage = "https://screensteward.app"
+Repository = "https://github.com/screensteward/shared"
+Issues = "https://github.com/screensteward/shared/issues"
+
+[project.optional-dependencies]
+dev = [
+  "grpcio-tools>=1.66",
+  "pytest>=8.0",
+  "ruff>=0.5",
+  "build",
+  "twine",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+screensteward_shared = ["generated/*.pyi"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
