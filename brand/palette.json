@@ -1,0 +1,51 @@
+{
+  "color": {
+    "primary": {
+      "100": {
+        "value": "#f5e4d7",
+        "description": "Warm background tint, hover soft, tag background"
+      },
+      "300": {
+        "value": "#e4a884",
+        "description": "Hover intense, colored border, dark-mode icon alt color"
+      },
+      "500": {
+        "value": "#c97b4f",
+        "description": "Brand primary — icon background, CTA buttons"
+      },
+      "700": {
+        "value": "#9c5a36",
+        "description": "Text on primary-100, standalone wordmark, links"
+      }
+    },
+    "accent": {
+      "sage": {
+        "value": "#6a8570",
+        "description": "Cool counterpoint to warm primary — tags, new badges"
+      }
+    },
+    "semantic": {
+      "success": {
+        "value": "#4a8060",
+        "description": "Validation, confirmation states"
+      },
+      "warning": {
+        "value": "#d4a437",
+        "description": "Budget nearly exhausted, caution"
+      },
+      "danger": {
+        "value": "#b0493f",
+        "description": "Error, destructive action, blocking"
+      }
+    },
+    "neutral": {
+      "50": { "value": "#fafafa" },
+      "100": { "value": "#f4f4f4" },
+      "300": { "value": "#d4d4d4" },
+      "500": { "value": "#737373" },
+      "700": { "value": "#404040" },
+      "900": { "value": "#1a1a1a" },
+      "950": { "value": "#0a0a0a" }
+    }
+  }
+}
