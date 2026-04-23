@@ -1,0 +1,51 @@
+name: Publish Dart to pub.dev
+
+on:
+  push:
+    tags:
+      - 'dart-v*'
+
+jobs:
+  publish:
+    permissions:
+      id-token: write  # Required for pub.dev OIDC-based trusted publishing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install protoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.11.4
+
+      - name: Install protoc-gen-dart
+        run: |
+          dart pub global activate protoc_plugin
+          echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
+
+      - name: Generate Dart code from proto
+        run: |
+          mkdir -p dart/lib/src/generated
+          protoc --dart_out=dart/lib/src/generated --proto_path=proto proto/*.proto
+
+      - name: Dart pub get
+        working-directory: dart
+        run: dart pub get
+
+      - name: Verify version matches tag
+        working-directory: dart
+        run: |
+          PUBSPEC_VERSION=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+          TAG_VERSION="${GITHUB_REF_NAME#dart-v}"
+          if [ "$PUBSPEC_VERSION" != "$TAG_VERSION" ]; then
+            echo "ERROR: pubspec version ($PUBSPEC_VERSION) != tag version ($TAG_VERSION)"
+            exit 1
+          fi
+
+      - name: Publish to pub.dev
+        working-directory: dart
+        run: dart pub publish --force
