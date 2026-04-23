@@ -4,6 +4,12 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [dart-0.1.2] - 2026-04-23
+
+### Changed
+
+- Embed the ScreenSteward icon in the Dart package README, visible on pub.dev.
+
 ## [brand-0.1.0] - 2026-04-23
 
 ### Added
