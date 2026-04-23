@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Add ScreenSteward icon to the pub.dev package README.
+
 ## 0.1.1
 
 - Declare `topics` in pubspec for better pub.dev search discoverability.
