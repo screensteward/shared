@@ -1,0 +1,23 @@
+# Dart
+dart/.dart_tool/
+dart/.packages
+dart/build/
+dart/pubspec.lock
+
+# Python
+python/__pycache__/
+python/*.egg-info/
+python/dist/
+python/build/
+python/.pytest_cache/
+python/.venv/
+python/*.pyc
+
+# Generated code (regenerated from .proto)
+dart/lib/src/generated/
+python/src/screensteward_shared/generated/
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
