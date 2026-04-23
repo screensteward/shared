@@ -4,7 +4,7 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
-## [0.1.0] - YYYY-MM-DD
+## [0.1.0] - 2026-04-23
 
 ### Added
 
