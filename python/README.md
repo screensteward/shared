@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/screensteward/shared/main/brand/icon-256.png" alt="ScreenSteward" width="128" height="128"/>
+</p>
+
 # screensteward-shared
 
 Generated Protocol Buffers schemas, i18n pilot bundles, and shared types for [ScreenSteward](https://screensteward.app).

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "screensteward-shared"
-version = "0.1.0"
+version = "0.1.1"
 description = "Protocol Buffers schemas, i18n bundles, and shared types for ScreenSteward."
 readme = "README.md"
 license = {text = "GPL-3.0-or-later"}
