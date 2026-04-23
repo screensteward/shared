@@ -1,24 +1,27 @@
 # ScreenSteward Shared
 
-Source unique de vérité pour :
+Single source of truth for:
 
-- **Protocol Buffers** — messages échangés entre child cores, parent apps, et (plus tard) backend.
-- **Internationalisation** — clés et traductions, exportables vers ARB (Flutter) et PO (gettext/Python).
-- **Types métiers** — représentations partagées.
+- **Protocol Buffers** — messages exchanged between child cores, parent apps, and (eventually) the backend.
+- **Internationalization** — keys and translations, exportable to ARB (Flutter) and PO (gettext/Python).
+- **Domain types** — shared representations.
 
-Consommé via :
+Consumed via:
 
-- **Dart package** : [`screen_steward_shared` sur pub.dev](https://pub.dev/packages/screen_steward_shared)
-- **Python package** : [`screensteward-shared` sur PyPI](https://pypi.org/project/screensteward-shared/)
+- **Dart package** — [`screen_steward_shared` on pub.dev](https://pub.dev/packages/screen_steward_shared)
+- **Python package** — [`screensteward-shared` on PyPI](https://pypi.org/project/screensteward-shared/)
 
 ## Building
 
 ```sh
 just generate   # regenerate code from .proto
 just test       # run all tests (Dart + Python)
-just build      # build both packages
+just build-dart
+just build-python
 ```
+
+Python commands run inside the project venv managed by [`uv`](https://docs.astral.sh/uv/). Run `just sync` to create or refresh it.
 
 ## License
 
-GNU General Public License v3.0 (GPL-3.0). Voir [LICENSE](./LICENSE).
+GNU General Public License v3.0 (GPL-3.0). See [LICENSE](./LICENSE).
