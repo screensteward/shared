@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package screensteward.v1;
+
+import "usage.proto";
+
+option java_package = "app.screensteward.v1";
+option csharp_namespace = "ScreenSteward.V1";
+
+// Child Core -> Parent event. Wrapped envelope.
+message ChildEvent {
+  string id = 1;                     // UUIDv4
+  string device_id = 2;
+  int64 emitted_at_ms = 3;
+  bytes signature = 4;               // Ed25519 signature over the serialized payload
+
+  oneof payload {
+    UsageUpdateEvent usage_update = 10;
+    PolicyViolationAttemptedEvent policy_violation = 11;
+    ExtensionRequestedEvent extension_requested = 12;
+    CoreStatusEvent core_status = 13;
+  }
+}
+
+message UsageUpdateEvent {
+  UsageCounter counter = 1;
+}
+
+message PolicyViolationAttemptedEvent {
+  string child_id = 1;
+  string app_id = 2;
+  string reason = 3;                 // e.g. "budget_exhausted", "time_window_blocked"
+  int64 attempted_at_ms = 4;
+}
+
+message ExtensionRequestedEvent {
+  string child_id = 1;
+  int32 requested_minutes = 2;
+  string child_reason = 3;           // free-text from child UI
+  int64 requested_at_ms = 4;
+}
+
+message CoreStatusEvent {
+  string core_version = 1;
+  string child_id = 2;
+  bool is_enforcing = 3;
+  int64 uptime_seconds = 4;
+}

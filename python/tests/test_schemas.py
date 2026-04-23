@@ -1,4 +1,11 @@
-from screensteward_shared.generated import device_pb2, family_pb2, policy_pb2, usage_pb2
+from screensteward_shared.generated import (
+    command_pb2,
+    device_pb2,
+    event_pb2,
+    family_pb2,
+    policy_pb2,
+    usage_pb2,
+)
 
 
 def test_family_message_roundtrip():
@@ -135,3 +142,52 @@ def test_usage_event_has_time_bounds():
         category="games",
     )
     assert e.ended_at_ms - e.started_at_ms == 60000
+
+
+def test_set_policy_command_wraps_policy():
+    pol = policy_pb2.Policy(
+        id="pol-1",
+        child_id="child-123",
+        scope_type=policy_pb2.SCOPE_CHILD,
+        priority=100,
+    )
+    cmd = command_pb2.ParentCommand(
+        id="cmd-1",
+        issued_by_parent_id="parent-A",
+        issued_at_ms=1700000000000,
+        set_policy=command_pb2.SetPolicyCommand(policy=pol),
+    )
+    assert cmd.WhichOneof("payload") == "set_policy"
+    assert cmd.set_policy.policy.id == "pol-1"
+
+
+def test_grant_extension_command():
+    cmd = command_pb2.ParentCommand(
+        id="cmd-2",
+        issued_by_parent_id="parent-A",
+        issued_at_ms=1700000000000,
+        grant_extension=command_pb2.GrantExtensionCommand(
+            child_id="child-123",
+            duration_minutes=30,
+            reason="Birthday",
+        ),
+    )
+    assert cmd.WhichOneof("payload") == "grant_extension"
+    assert cmd.grant_extension.duration_minutes == 30
+
+
+def test_usage_update_event_wraps_counter():
+    e = event_pb2.ChildEvent(
+        id="ev-1",
+        device_id="dev-1",
+        emitted_at_ms=1700000000000,
+        usage_update=event_pb2.UsageUpdateEvent(
+            counter=usage_pb2.UsageCounter(
+                child_id="child-123",
+                date_yyyymmdd=20260423,
+                per_device_minutes={"dev-1": 45},
+            )
+        ),
+    )
+    assert e.WhichOneof("payload") == "usage_update"
+    assert e.usage_update.counter.per_device_minutes["dev-1"] == 45

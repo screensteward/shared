@@ -4,6 +4,8 @@ import 'package:screen_steward_shared/src/generated/family.pb.dart';
 import 'package:screen_steward_shared/src/generated/device.pb.dart';
 import 'package:screen_steward_shared/src/generated/policy.pb.dart';
 import 'package:screen_steward_shared/src/generated/usage.pb.dart';
+import 'package:screen_steward_shared/src/generated/command.pb.dart';
+import 'package:screen_steward_shared/src/generated/event.pb.dart';
 
 void main() {
   test('Family message can be constructed with id and name', () {
@@ -98,6 +100,50 @@ void main() {
         ..category = 'games';
       final duration = e.endedAtMs - e.startedAtMs;
       expect(duration.toInt(), 60000);
+    });
+  });
+
+  group('Commands and Events (parent-child protocol)', () {
+    test('SetPolicyCommand carries the full Policy', () {
+      final cmd = ParentCommand()
+        ..id = 'cmd-1'
+        ..issuedByParentId = 'parent-A'
+        ..issuedAtMs = Int64(1700000000000)
+        ..setPolicy = (SetPolicyCommand()
+          ..policy = (Policy()
+            ..id = 'pol-1'
+            ..childId = 'child-123'
+            ..scopeType = PolicyScope.SCOPE_CHILD
+            ..priority = 100));
+      expect(cmd.whichPayload(), ParentCommand_Payload.setPolicy);
+      expect(cmd.setPolicy.policy.id, 'pol-1');
+    });
+
+    test('GrantExtensionCommand carries duration and reason', () {
+      final cmd = ParentCommand()
+        ..id = 'cmd-2'
+        ..issuedByParentId = 'parent-A'
+        ..issuedAtMs = Int64(1700000000000)
+        ..grantExtension = (GrantExtensionCommand()
+          ..childId = 'child-123'
+          ..durationMinutes = 30
+          ..reason = 'Birthday');
+      expect(cmd.whichPayload(), ParentCommand_Payload.grantExtension);
+      expect(cmd.grantExtension.durationMinutes, 30);
+    });
+
+    test('UsageUpdateEvent carries counter snapshot', () {
+      final e = ChildEvent()
+        ..id = 'ev-1'
+        ..deviceId = 'dev-1'
+        ..emittedAtMs = Int64(1700000000000)
+        ..usageUpdate = (UsageUpdateEvent()
+          ..counter = (UsageCounter()
+            ..childId = 'child-123'
+            ..dateYyyymmdd = 20260423
+            ..perDeviceMinutes.addAll({'dev-1': 45})));
+      expect(e.whichPayload(), ChildEvent_Payload.usageUpdate);
+      expect(e.usageUpdate.counter.perDeviceMinutes['dev-1'], 45);
     });
   });
 }

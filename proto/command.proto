@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package screensteward.v1;
+
+import "policy.proto";
+
+option java_package = "app.screensteward.v1";
+option csharp_namespace = "ScreenSteward.V1";
+
+// Parent -> Child Core command. Wrapped envelope with typed payload.
+message ParentCommand {
+  string id = 1;                     // UUIDv4 for idempotency
+  string issued_by_parent_id = 2;
+  string issued_by_device_id = 3;
+  int64 issued_at_ms = 4;
+  bytes signature = 5;               // Ed25519 signature over the serialized payload
+
+  oneof payload {
+    SetPolicyCommand set_policy = 10;
+    RevokePolicyCommand revoke_policy = 11;
+    GrantExtensionCommand grant_extension = 12;
+    RequestFullSyncCommand request_full_sync = 13;
+    RequestUsageReportCommand request_usage_report = 14;
+    EnrollChildDeviceCommand enroll_child_device = 15;
+    EnrollParentDeviceCommand enroll_parent_device = 16;
+    RevokeDeviceCommand revoke_device = 17;
+  }
+}
+
+message SetPolicyCommand {
+  Policy policy = 1;
+}
+
+message RevokePolicyCommand {
+  string policy_id = 1;
+}
+
+message GrantExtensionCommand {
+  string child_id = 1;
+  int32 duration_minutes = 2;
+  string reason = 3;
+}
+
+message RequestFullSyncCommand {
+  string child_id = 1;
+}
+
+message RequestUsageReportCommand {
+  string child_id = 1;
+  int32 start_date_yyyymmdd = 2;
+  int32 end_date_yyyymmdd = 3;
+}
+
+// Enrollment: a parent endorses a new ChildDevice pubkey into the family.
+message EnrollChildDeviceCommand {
+  string child_id = 1;
+  bytes new_device_pubkey = 2;
+  int64 endorsed_at_ms = 3;
+}
+
+message EnrollParentDeviceCommand {
+  string parent_id = 1;                 // may be existing or new
+  bytes new_device_pubkey = 2;
+  int64 endorsed_at_ms = 3;
+}
+
+message RevokeDeviceCommand {
+  bytes device_pubkey = 1;              // pubkey being revoked
+  int64 revoked_at_ms = 2;
+  string reason = 3;
+}
