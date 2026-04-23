@@ -4,6 +4,23 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [brand-0.1.0] - 2026-04-23
+
+### Added
+
+- Brand assets directory `brand/` with icon master SVG (1024×1024),
+  PNG exports (16/32/64/128/256/512/1024), monochrome and outline
+  variants, dark-mode alternative icon, Android adaptive icon layers,
+  horizontal and vertical logo lockups, standalone wordmark.
+- IBM Plex Sans (Regular/Medium/SemiBold/Bold) and IBM Plex Mono
+  (Regular/Medium) WOFF2 files under `brand/fonts/` (SIL OFL).
+- Color tokens in `brand/palette.json` with generated `palette.css`
+  and `palette.dart` exports.
+- `brand/typography.css` with `@font-face` declarations and type-scale
+  CSS variables.
+- `brand/USAGE.md` with clearspace, minimum sizes, color usage rules,
+  and do's / don'ts.
+
 ## [python-0.1.0] - 2026-04-23
 
 ### Added
