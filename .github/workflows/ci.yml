@@ -62,6 +62,9 @@ jobs:
         with:
           sdk: 3.11.4
       - uses: astral-sh/setup-uv@v3
+      - name: Dart pub get (needed for dart format to pick the right language version)
+        working-directory: dart
+        run: dart pub get
       - name: Dart format check
         working-directory: dart
         run: dart format --output=none --set-exit-if-changed lib/screen_steward_shared.dart test/ example/
