@@ -22,3 +22,6 @@ python/src/screensteward_shared/generated/
 .DS_Store
 .idea/
 .vscode/
+
+# Claude Code agent context (local-only; public repos must not leak it)
+CLAUDE.md
